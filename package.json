@@ -1,0 +1,28 @@
+{
+  "name": "servergraphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "set NODE_ENV=production && ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
+    "generate": "ts-node --transpile-only src/schema.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mysql": "^2.15.21",
+    "cross-env": "^7.0.3",
+    "node-env-run": "^4.0.2",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "apollo-server": "^3.1.1",
+    "dotenv": "^16.3.1",
+    "graphql": "^15.5.1",
+    "mysql": "^2.18.1",
+    "nexus": "^1.1.0"
+  }
+}
