@@ -5,6 +5,7 @@ DELIMITER $$
 CREATE PROCEDURE pruebas_01.user_login(IN _email VARCHAR(100), IN _password VARCHAR(100))
 BEGIN
 	SELECT 
+	u.uuid id,
 	u.name 
 	,u.last_name
 	,a.email
