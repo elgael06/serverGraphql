@@ -34,6 +34,11 @@ export interface NexusGenObjects {
     url: string; // String!
   }
   Mutation: {};
+  Profile: { // root type
+    id: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
   Query: {};
 }
 
@@ -55,8 +60,15 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     updateLink: NexusGenRootTypes['Link']; // Link!
+    updateProfile: NexusGenRootTypes['Profile'] | null; // Profile
+  }
+  Profile: { // field return type
+    id: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
   }
   Query: { // field return type
+    all: NexusGenRootTypes['Profile'][]; // [Profile!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
   }
 }
@@ -69,8 +81,15 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     updateLink: 'Link'
+    updateProfile: 'Profile'
+  }
+  Profile: { // field return type name
+    id: 'String'
+    isActive: 'Boolean'
+    name: 'String'
   }
   Query: { // field return type name
+    all: 'Profile'
     feed: 'Link'
   }
 }
@@ -80,6 +99,10 @@ export interface NexusGenArgTypes {
     updateLink: { // args
       description: string; // String!
       url: string; // String!
+    }
+    updateProfile: { // args
+      isActive: boolean; // Boolean!
+      name: string; // String!
     }
   }
 }

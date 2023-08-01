@@ -1,5 +1,6 @@
 
 export enum procedures {
-  userLogin = 'CALL pruebas_01.user_login(:1, :2);',
-  userProfile = 'CALL pruebas_01.user_profile(:1);',
+  userLogin = 'CALL pruebas_01.user_login(?, ?);',
+  userProfile = 'CALL pruebas_01.user_profile(?);',
+  profileAdd ='CALL pruebas_01.profile_new(?, ?);'
 }

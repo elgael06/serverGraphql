@@ -10,8 +10,16 @@ type Link {
 
 type Mutation {
   updateLink(description: String!, url: String!): Link!
+  updateProfile(isActive: Boolean!, name: String!): Profile
+}
+
+type Profile {
+  id: String!
+  isActive: Boolean!
+  name: String!
 }
 
 type Query {
+  all: [Profile!]!
   feed: [Link!]!
 }
