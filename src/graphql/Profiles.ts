@@ -1,6 +1,6 @@
 import { booleanArg, extendType, nonNull, objectType, stringArg } from "nexus";
 import { NexusGenObjects } from "../../nexus-typegen"; 
-import { addProfile, findProfiles } from "../services/profiles.service";
+import { addProfile, deleteProfileById, findProfileById, findProfiles, profileRoles } from "../services/profiles.service";
 
 export const Profile = objectType({
   name: "Profile",
@@ -8,14 +8,25 @@ export const Profile = objectType({
     t.nonNull.string("id"); 
     t.nonNull.string("name");
     t.nonNull.boolean("isActive");
-      
+    t.nonNull.list.field('Roles', {
+      type: 'Role',
+      args: {
+        id: nonNull(stringArg()),
+      },
+      async resolve(parent, args, context) {
+        const { id = '' } = args;
+        const data = await profileRoles(id);
+        return data as NexusGenObjects["Role"][]
+      }
+    })
   },
+  description: 'Perfil de accesos a roles de seguridad.',
 });
 
 export const ProfileMutation = extendType({  // 1
   type: "Mutation",    
   definition(t) {
-    t.nullable.field("updateProfile", {
+    t.nullable.field("addProfile", {
       type: "Profile",
       args: {
         name: nonNull(stringArg()),
@@ -40,5 +51,27 @@ export const ProfileQuery = extendType({
         return data as NexusGenObjects["Profile"][];
       },
     });
+    t.nonNull.field("profileById", {
+      type: "Profile",
+      args: {
+        id: nonNull(stringArg()),
+      },
+      async resolve(parent, args, context) {
+        const { id } = args;
+        const data = await findProfileById(id);
+        return data as NexusGenObjects["Profile"];
+      },
+    });
+    t.nonNull.string("profileDelete", {
+      args: {
+        id: nonNull(stringArg()),
+      },
+      async resolve(parent, args, context) {
+        const { id } = args;
+        const data = await deleteProfileById(id);
+        return data;
+      },
+    });
+    
   },
 });

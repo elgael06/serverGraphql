@@ -28,11 +28,6 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Link: { // root type
-    description: string; // String!
-    id: number; // Int!
-    url: string; // String!
-  }
   Mutation: {};
   Profile: { // root type
     id: string; // String!
@@ -40,6 +35,11 @@ export interface NexusGenObjects {
     name: string; // String!
   }
   Query: {};
+  Role: { // root type
+    id: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -53,56 +53,67 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Link: { // field return type
-    description: string; // String!
-    id: number; // Int!
-    url: string; // String!
-  }
   Mutation: { // field return type
-    updateLink: NexusGenRootTypes['Link']; // Link!
-    updateProfile: NexusGenRootTypes['Profile'] | null; // Profile
+    addProfile: NexusGenRootTypes['Profile'] | null; // Profile
   }
   Profile: { // field return type
+    Roles: Array<NexusGenRootTypes['Role'] | null>; // [Role]!
     id: string; // String!
     isActive: boolean; // Boolean!
     name: string; // String!
   }
   Query: { // field return type
     all: NexusGenRootTypes['Profile'][]; // [Profile!]!
-    feed: NexusGenRootTypes['Link'][]; // [Link!]!
+    profileById: NexusGenRootTypes['Profile']; // Profile!
+    profileDelete: string; // String!
+  }
+  Role: { // field return type
+    id: string; // String!
+    isActive: boolean; // Boolean!
+    name: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Link: { // field return type name
-    description: 'String'
-    id: 'Int'
-    url: 'String'
-  }
   Mutation: { // field return type name
-    updateLink: 'Link'
-    updateProfile: 'Profile'
+    addProfile: 'Profile'
   }
   Profile: { // field return type name
+    Roles: 'Role'
     id: 'String'
     isActive: 'Boolean'
     name: 'String'
   }
   Query: { // field return type name
     all: 'Profile'
-    feed: 'Link'
+    profileById: 'Profile'
+    profileDelete: 'String'
+  }
+  Role: { // field return type name
+    id: 'String'
+    isActive: 'Boolean'
+    name: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    updateLink: { // args
-      description: string; // String!
-      url: string; // String!
-    }
-    updateProfile: { // args
+    addProfile: { // args
       isActive: boolean; // Boolean!
       name: string; // String!
+    }
+  }
+  Profile: {
+    Roles: { // args
+      id: string; // String!
+    }
+  }
+  Query: {
+    profileById: { // args
+      id: string; // String!
+    }
+    profileDelete: { // args
+      id: string; // String!
     }
   }
 }

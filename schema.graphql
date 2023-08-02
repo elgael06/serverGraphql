@@ -2,18 +2,13 @@
 ### Do not make changes to this file directly
 
 
-type Link {
-  description: String!
-  id: Int!
-  url: String!
-}
-
 type Mutation {
-  updateLink(description: String!, url: String!): Link!
-  updateProfile(isActive: Boolean!, name: String!): Profile
+  addProfile(isActive: Boolean!, name: String!): Profile
 }
 
+"""Perfil de accesos a roles de seguridad."""
 type Profile {
+  Roles(id: String!): [Role]!
   id: String!
   isActive: Boolean!
   name: String!
@@ -21,5 +16,13 @@ type Profile {
 
 type Query {
   all: [Profile!]!
-  feed: [Link!]!
+  profileById(id: String!): Profile!
+  profileDelete(id: String!): String!
+}
+
+"""Conjunto de roles de accesos pertenecientes a un perfil."""
+type Role {
+  id: String!
+  isActive: Boolean!
+  name: String!
 }
